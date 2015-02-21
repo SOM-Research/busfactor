@@ -1,0 +1,67 @@
+
+.fileGraph {
+	margin-top: 10px;
+  height : 260px;
+  overflow: scroll;
+}
+
+.factorBox {
+  margin-top: 30px;
+  border: 2px solid #c3c3c3;
+  border-radius: 10px;
+  padding: 5px 5px 5px 5px;
+  margin-bottom: 5px
+
+}
+
+.factorBox .title {
+  margin-bottom: 0px;
+}
+
+.factorBox .factor {
+  font-size: 5em;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+
+}
+
+.description {
+  font-size: 1.15em;
+  display: inline;
+}
+
+.description emph {
+  font-weight: normal;
+}
+
+
+circle {
+  fill-opacity: .25;
+  stroke: rgb(31, 119, 180);
+  stroke-width: 1px;
+}
+
+.leaf circle {
+  fill: #ff7f0e;
+  fill-opacity: 1;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
+.infoTooltip {
+  position: absolute;
+  padding: 5px 5px 0px 5px;
+  margin-bottom: 0px;
+  background-color: #EEEEEE;
+  border: solid 1px #777777;
+  pointer-events: none;
+ }
+
+.infoTooltip p {
+  font-size: 11px;
+  padding-bottom: 0px;
+}
