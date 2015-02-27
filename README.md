@@ -1,5 +1,7 @@
 # Bus Factor Analyzer
 
+The tool is the result of the ongoing work published in the 22nd IEEE International Conference on Software Analysis, Evolution, and Reengineering (available for download at http://tinyurl.com/AssessingBusFactorForGitRepo). We would be very interested in getting feedback and helping people use it.
+
 ###How To
 
 In order to run the tool you need to perform some steps:
