@@ -54,3 +54,7 @@ line (or file for binary files).
  - **Weighted distinct changes.** This metric assesses the developer knowledge by relying of the previous metric modified to take into account the position of the
 modifications in the time-line evolution of the line/file. It is used to assign an incremental importance to the later modifications
 on the line/file.
+
+###Demo
+
+A demo of the tool is available at https://github.com/atlanmod/busfactor_demo
