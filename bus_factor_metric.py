@@ -314,7 +314,8 @@ class Metrics():
     def get_top_three_extensions(self, extensions, file_count):
         top3exts = []
 
-        for ext in extensions.keys():
+        sorted_keys = self.get_sorted_keys(extensions)
+        for ext in sorted_keys:
             percentage = round((extensions.get(ext)/float(file_count))*100, 2)
             top3exts.append({'name': ext, 'percentage': percentage})
             if len(top3exts) > 2:
@@ -569,41 +570,47 @@ class Metrics():
     def export_bus_factor_information(self):
         start_time = datetime.now()
 
-        bus_factor_per_file = self.get_bus_factor_per_file()
-        bus_factor_per_directory = self.get_bus_factor_per_directory()
         bus_factor_per_ref = self.get_bus_factor_per_ref()
-        bus_factor_per_extension = self.get_bus_factor_per_extension()
-        user_relevance = self.get_user_relevance()
-        extension_relevance = self.get_extensions_relevance()
-        project_info = self.get_project_info()
-
         bus_factor_json = codecs.open(self.JSON_BUS_FACTOR_DIR + "/.references.json", 'w', 'utf-8')
         bus_factor_json.write(json.dumps({'references': bus_factor_per_ref}) + "\n")
         bus_factor_json.close()
+        del bus_factor_per_ref
 
+        bus_factor_per_directory = self.get_bus_factor_per_directory()
         bus_factor_json = codecs.open(self.JSON_BUS_FACTOR_DIR + "/dirs.json", 'w', 'utf-8')
         bus_factor_json.write(json.dumps({'dirs': bus_factor_per_directory}) + "\n")
         bus_factor_json.close()
+        del bus_factor_per_directory
 
+        bus_factor_per_file = self.get_bus_factor_per_file()
         bus_factor_json = codecs.open(self.JSON_BUS_FACTOR_DIR + "/files.json", 'w', 'utf-8')
         bus_factor_json.write(json.dumps({'files': bus_factor_per_file}) + "\n")
         bus_factor_json.close()
+        del bus_factor_per_file
 
+        bus_factor_per_extension = self.get_bus_factor_per_extension()
         bus_factor_json = codecs.open(self.JSON_BUS_FACTOR_DIR + "exts.json", 'w', 'utf-8')
         bus_factor_json.write(json.dumps({'exts': bus_factor_per_extension}) + "\n")
         bus_factor_json.close()
+        del bus_factor_per_extension
 
+        user_relevance = self.get_user_relevance()
         bus_factor_json = codecs.open(self.JSON_BUS_FACTOR_DIR + "user_relevance.json", 'w', 'utf-8')
         bus_factor_json.write(json.dumps({'user_relevance': user_relevance}) + "\n")
         bus_factor_json.close()
+        del user_relevance
 
+        extension_relevance = self.get_extensions_relevance()
         bus_factor_json = codecs.open(self.JSON_BUS_FACTOR_DIR + "extension_relevance.json", 'w', 'utf-8')
         bus_factor_json.write(json.dumps({'extension_relevance': extension_relevance}) + "\n")
         bus_factor_json.close()
+        del extension_relevance
 
+        project_info = self.get_project_info()
         bus_factor_json = codecs.open(self.JSON_BUS_FACTOR_DIR + "project_info.json", 'w', 'utf-8')
         bus_factor_json.write(json.dumps({'project_info': project_info}) + "\n")
         bus_factor_json.close()
+        del project_info
 
         end_time = datetime.now()
 
