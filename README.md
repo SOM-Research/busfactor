@@ -1,5 +1,7 @@
 # Bus Factor Analyzer
 
+The tool is the result of the ongoing work published in the 22nd IEEE International Conference on Software Analysis, Evolution, and Reengineering (available for download at http://tinyurl.com/AssessingBusFactorForGitRepo). We would be very interested in getting feedback and helping people use it.
+
 ###How To
 
 In order to run the tool you need to perform some steps:
@@ -52,3 +54,7 @@ line (or file for binary files).
  - **Weighted distinct changes.** This metric assesses the developer knowledge by relying of the previous metric modified to take into account the position of the
 modifications in the time-line evolution of the line/file. It is used to assign an incremental importance to the later modifications
 on the line/file.
+
+###Demo
+
+A demo of the tool is available at https://github.com/atlanmod/busfactor_demo
