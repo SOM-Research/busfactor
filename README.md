@@ -6,7 +6,7 @@ The tool is the result of the ongoing work published in the 22nd IEEE Internatio
 
 In order to run the tool you need to perform some steps:
 
-1) Install Gitana (https://github.com/valeriocos/Gitana) 
+1) Install Gitana (https://github.com/SOM-Research/Gitana/tree/0.2) 
 
 2) Launch the Gitana GUI (gitana_gui.py) and extract your Git repository to a relational database
 
