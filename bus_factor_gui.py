@@ -5,6 +5,8 @@ from Tkinter import *
 from tkFileDialog import *
 import ttk
 import os
+import tkMessageBox
+import shutil
 import logging
 import getopt
 import threading
@@ -19,6 +21,7 @@ class BusFactor(Tk):
 
     def __init__(self, notify):
         Tk.__init__(self)
+        self.mypath = os.path.dirname(os.path.abspath(__file__)) + "/"
 
         self.logger = logging.getLogger('bus_factor')
         fileHandler = logging.FileHandler(BusFactor.LOG_FILENAME, mode='w')
@@ -42,7 +45,7 @@ class BusFactor(Tk):
 
     def initialize_gui(self):
 
-        img = Image.open("bus_img.png")
+        img = Image.open(self.mypath + "bus_img.png")
         img = img.resize((250, 250), Image.ANTIALIAS)
         img = ImageTk.PhotoImage(img)
 
@@ -125,6 +128,22 @@ class BusFactor(Tk):
         labelExecuting.grid(column=0, row=10, sticky='EW')
 
         self.resizable(True, False)
+        
+        # TKinker is not thread safe!
+        # See http://stackoverflow.com/questions/22541693/tkinter-and-thread-out-of-stack-space-infinite-loop
+        self.resetButtons = False
+        self.importingFailureMsg = ""
+        def do_every_50_ms(self):
+            if self.resetButtons:
+                self.buttonFinish.config(state=NORMAL)
+                self.buttonAbort.config(state=DISABLED)
+                self.resetButtons = False
+            if self.importingFailureMsg:
+                tkMessageBox.showerror("Execution failed:", 
+                                       self.importingFailureMsg)
+                self.importingFailureMsg = ""
+            self.after(50, do_every_50_ms, self)
+        do_every_50_ms(self)
 
     def search_for_directory(self):
         dir = askdirectory(parent=self, title='Choose a directory')
@@ -216,17 +235,19 @@ class BusFactor(Tk):
             except:
                 print traceback.format_exc()
                 self.info_execution.set("Failed")
-                self.buttonFinish.config(state=NORMAL)
-                self.buttonAbort.config(state=DISABLED)
-
+                #self.buttonFinish.config(state=NORMAL)
+                #self.buttonAbort.config(state=DISABLED)
+                self.importingFailureMsg = traceback.format_exc(limit=1)
+            self.resetButtons = True
 
     def execute_process(self):
         self.init_process()
         self.start_process()
         self.notify()
         self.info_execution.set("Finished")
-        self.buttonFinish.config(state=NORMAL)
-        self.buttonAbort.config(state=DISABLED)
+        #self.buttonFinish.config(state=NORMAL)
+        #self.buttonAbort.config(state=DISABLED)
+        self.resetButtons = True
 
     def notify(self):
         if self.NOTIFY:
@@ -247,7 +268,8 @@ class BusFactor(Tk):
         metrics.export_bus_factor_information()
 
     def init_process(self):
-        self.OUTPUT_DIRECTORY_VISUALIATION = "./data/"
+        self.OUTPUT_DIR = './output/'
+        self.OUTPUT_DIRECTORY_VISUALIATION = self.OUTPUT_DIR + "data/"
         self.JSON_PATH = self.JSONPathVariable.get()
 
         if self.detailLevelVariable.get() == "line":
@@ -270,6 +292,9 @@ class BusFactor(Tk):
         #create output directories
         if not os.path.exists(self.OUTPUT_DIRECTORY_VISUALIATION):
             os.makedirs(self.OUTPUT_DIRECTORY_VISUALIATION)
+        shutil.copy(self.mypath + "index.html", self.OUTPUT_DIR)
+        shutil.copytree(self.mypath + "css", self.OUTPUT_DIR + 'css')
+        shutil.copytree(self.mypath + "js", self.OUTPUT_DIR + 'js')
 
 
 def main(argv):
