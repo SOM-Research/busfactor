@@ -24,6 +24,6 @@ setup(name='busfactor',
 	package_dir={'busfactor': ''},
 	package_data={'busfactor': ['css/*.css', 'css/bootstrap/*.css',
 							 'data/*.json', 'js/*.js', 'js/bootstrap/*.js',
-							 'js/vendor/*.js', '*.png', 'index.html, 
+							 'js/vendor/*.js', '*.png', 'index.html', 
 							 'LICENSE']},
 )
