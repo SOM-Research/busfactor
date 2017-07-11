@@ -9,6 +9,8 @@ import psutil
 from selenium import webdriver
 from bus_factor_gui import BusFactor
 
+WEB_BROWSER_PATH = 'C:\chromedriver_win32\chromedriver.exe'
+
 pro = None
 gui = None
 #if this value is false, the script will prompt the content of the data folder in a HTML page
@@ -45,7 +47,7 @@ def start_gui():
 
 
 def open_browser():
-    driver = webdriver.Chrome(executable_path='C:\Program Files (x86)\Google\Chrome\chromedriver.exe')
+    driver = webdriver.Chrome(executable_path=WEB_BROWSER_PATH)
     driver.get("http://localhost:8000/index.html")
     driver.refresh()
 
