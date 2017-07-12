@@ -99,7 +99,7 @@ class BusFactor(Tk):
         labelDetailLevel.grid(column=0, row=8, sticky='W')
 
         self.detailLevelComboBox = ttk.Combobox(self, textvariable=self.detailLevelVariable)
-        self.detailLevelComboBox['values'] = ('line', 'file')
+        self.detailLevelComboBox['values'] = ('file')
         self.detailLevelComboBox.current(0)
         self.detailLevelComboBox.grid(column=1, row=8, sticky='W')
 
@@ -260,7 +260,7 @@ class BusFactor(Tk):
     def start_process(self):
         input_json = self.JSONPathVariable.get()
 
-        output_json = self.OUTPUT_DIRECTORY_VISUALIATION
+        output_json = self.OUTPUT_DIRECTORY
         metrics = Metrics(input_json, output_json,
                           self.DEVELOPER_KNOWLEDGE_STRATEGY,
                           self.PRIMARY_EXPERT_KNOWLEDGE,
@@ -268,14 +268,10 @@ class BusFactor(Tk):
         metrics.export_bus_factor_information()
 
     def init_process(self):
-        self.OUTPUT_DIR = './output/'
-        self.OUTPUT_DIRECTORY_VISUALIATION = self.OUTPUT_DIR + "data/"
+        self.OUTPUT_DIRECTORY = "./data/"
         self.JSON_PATH = self.JSONPathVariable.get()
 
-        if self.detailLevelVariable.get() == "line":
-             self.LINE_DETAILS = True
-        else:
-            self.LINE_DETAILS = False
+        self.LINE_DETAILS = False
 
         if self.labelPrimaryExpertKnowledgeVariable.get() == "1/D":
             self.PRIMARY_EXPERT_KNOWLEDGE = "default"
@@ -290,11 +286,9 @@ class BusFactor(Tk):
         self.DEVELOPER_KNOWLEDGE_STRATEGY = self.metricComboBoxVariable.get().replace(' ', '_')
 
         #create output directories
-        if not os.path.exists(self.OUTPUT_DIRECTORY_VISUALIATION):
-            os.makedirs(self.OUTPUT_DIRECTORY_VISUALIATION)
-        shutil.copy(self.mypath + "index.html", self.OUTPUT_DIR)
-        shutil.copytree(self.mypath + "css", self.OUTPUT_DIR + 'css')
-        shutil.copytree(self.mypath + "js", self.OUTPUT_DIR + 'js')
+        if os.path.exists(self.OUTPUT_DIRECTORY):
+            shutil.rmtree(self.OUTPUT_DIRECTORY)
+        os.makedirs(self.OUTPUT_DIRECTORY)
 
 
 def main(argv):

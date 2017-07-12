@@ -9,12 +9,12 @@ import psutil
 from selenium import webdriver
 from bus_factor_gui import BusFactor
 
-WEB_BROWSER_PATH = 'C:\chromedriver_win32\chromedriver.exe'
+WEB_BROWSER_PATH = './browser/chromedriver.exe'
 
 pro = None
 gui = None
 #if this value is false, the script will prompt the content of the data folder in a HTML page
-execute_bus_factor = False
+execute_bus_factor = True
 
 
 def is_process_running(pid):
