@@ -6,7 +6,7 @@ The tool is the result of the ongoing work published in the 22nd IEEE Internatio
 
 In order to run the tool you need to perform some steps:
 
-1) Install Gitana (https://github.com/SOM-Research/Gitana) 
+1) Install Gitana (https://github.com/valeriocos/Gitana) 
 
 2) Import your Git repository to Gitana, and export the file information to JSON
 ```python
